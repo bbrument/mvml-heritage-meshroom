@@ -276,6 +276,101 @@
                 }
             }
         },
+        "ConvertSfMFormat": {
+            "2.0": {
+                "inputs": {
+                    "input": {
+                        "type": "File",
+                        "value": ""
+                    },
+                    "fileExt": {
+                        "type": "ChoiceParam",
+                        "value": "usda",
+                        "values": [
+                            "abc",
+                            "usda",
+                            "sfm",
+                            "json",
+                            "ply",
+                            "baf"
+                        ]
+                    },
+                    "describerTypes": {
+                        "type": "ChoiceParam",
+                        "value": [
+                            "dspsift"
+                        ],
+                        "values": [
+                            "sift",
+                            "sift_float",
+                            "sift_upright",
+                            "dspsift",
+                            "akaze",
+                            "akaze_liop",
+                            "akaze_mldb",
+                            "cctag3",
+                            "cctag4",
+                            "sift_ocv",
+                            "akaze_ocv",
+                            "tag16h5",
+                            "survey",
+                            "roma",
+                            "unknown"
+                        ],
+                        "exclusive": false
+                    },
+                    "imageWhiteList": {
+                        "type": "ListAttribute",
+                        "elementDesc": {
+                            "type": "File",
+                            "value": ""
+                        }
+                    },
+                    "views": {
+                        "type": "BoolParam",
+                        "value": true
+                    },
+                    "intrinsics": {
+                        "type": "BoolParam",
+                        "value": true
+                    },
+                    "extrinsics": {
+                        "type": "BoolParam",
+                        "value": true
+                    },
+                    "structure": {
+                        "type": "BoolParam",
+                        "value": true
+                    },
+                    "observations": {
+                        "type": "BoolParam",
+                        "value": true
+                    },
+                    "surveys": {
+                        "type": "BoolParam",
+                        "value": true
+                    },
+                    "verboseLevel": {
+                        "type": "ChoiceParam",
+                        "value": "info",
+                        "values": [
+                            "fatal",
+                            "error",
+                            "warning",
+                            "info",
+                            "debug",
+                            "trace"
+                        ]
+                    }
+                },
+                "outputs": {
+                    "output": {
+                        "type": "File",
+                        "value": "{nodeCacheFolder}/sfm.{fileExtValue}"
+                    }
+                }
+            }
+        },
         "DepthMap": {
             "5.1": {
                 "inputs": {
@@ -3248,6 +3343,18 @@
             ],
             "inputs": {}
         },
+        "ConvertSfMFormat_1": {
+            "nodeType": "ConvertSfMFormat",
+            "version": "2.0",
+            "position": [
+                0,
+                0
+            ],
+            "inputs": {
+                "input": "{ExportImages_2.outputSfMData}",
+                "fileExt": "sfm"
+            }
+        },
         "DepthMapFilter_1": {
             "nodeType": "DepthMapFilter",
             "version": "4.0",
@@ -3398,7 +3505,7 @@
                 0
             ],
             "inputs": {
-                "inputSfm": "{ExportImages_2.outputSfMData}",
+                "inputSfm": "{ConvertSfMFormat_1.output}",
                 "downscale": 2,
                 "inputMesh": "{MeshFiltering_1.outputMesh}",
                 "lightRig": true,
@@ -3415,7 +3522,7 @@
                 0
             ],
             "inputs": {
-                "inputSfm": "{ExportImages_2.outputSfMData}",
+                "inputSfm": "{ConvertSfMFormat_1.output}",
                 "downscale": 2,
                 "inputMesh": "{MeshFiltering_1.outputMesh}",
                 "inputLights": "{LedGetterLights_1.outputFolder}",

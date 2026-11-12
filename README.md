@@ -1,11 +1,12 @@
 <img src="assets/banner.png" width="100%" alt="Textured reconstructions of the four objects of the VISART dataset: warrior head, flint biface, woman with a calathos and Gourdan bone">
 
 <!-- TODO at the Zenodo publication: check the dataset DOI (version DOI 10.5281/zenodo.23500437, concept DOI known
-only then), add the paper DOI to the badges and the BibTeX, update CITATION.cff. -->
+only then); proceedings DOI of the paper when available (badges, BibTeX, CITATION.cff). -->
 
 # Integrating Multi-view Multi-light Surface Reconstruction into Cultural Heritage Workflows
 
 [![ECCV 2026 Workshops](https://img.shields.io/badge/ECCV%202026-VISART%20workshop-red)](#citation)
+[![arXiv](https://img.shields.io/badge/arXiv-2609.15833-b31b1b)](https://arxiv.org/abs/2609.15833)
 [![Dataset DOI](https://img.shields.io/badge/dataset-10.5281%2Fzenodo.23500437-blue)](https://doi.org/10.5281/zenodo.23500437)
 [![Data license: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 [![Code license: MIT](https://img.shields.io/badge/code-MIT-yellow)](LICENSE)
@@ -19,14 +20,15 @@ Lilian Calvet<sup>6</sup>
 <sup>4</sup> Fittingbox, Labège · <sup>5</sup> TRACES, UMR 5608, CNRS, Toulouse ·
 <sup>6</sup> ROCS, Balgrist University Hospital, University of Zurich
 
-**Companion repository of the VISART dataset**: Meshroom templates, installation guide and tested versions to
+**Companion repository of the VISART dataset** ([paper](https://arxiv.org/abs/2609.15833)): Meshroom templates, installation guide and tested versions to
 reconstruct the four archaeological objects of the paper from their raw multi-view and multi-light images. The images
 are on [Zenodo](https://doi.org/10.5281/zenodo.23500437); this repository holds everything that changes with the
 software: versions, installation, settings, known issues.
 
 ## Updates
 
-- **2026-11-12**: first version. Templates in the `.mgt` format of Meshroom develop; end-to-end runs at low resolution
+- **2026-11-12**: first version. The LED-getter templates include a `ConvertSfMFormat` node
+  ([B14](docs/KNOWN_ISSUES.md#b14-led-getter-nodes-fail-with-a-numpy-1x-error)). Templates in the `.mgt` format of Meshroom develop; end-to-end runs at low resolution
   with the plugins installed by the Meshroom plugin manager ([tested versions](docs/TESTED_VERSIONS.md)).
 
 ## The dataset
@@ -115,8 +117,8 @@ Main limitations ([all issues and workarounds](docs/KNOWN_ISSUES.md)):
 
 - LINO-UniPS needs a GPU of compute capability 8.0 or newer (Ampere).
 - mrSegmentation is not in the official registry yet, and misses a dependency (OpenImageIO).
-- With the nightly build of AliceVision, the LED-getter nodes need an extra `ConvertSfMFormat` node
-  (`scripts/add_convert_sfm.py`).
+- The LED-getter templates convert the SfMData to `.sfm` (`ConvertSfMFormat`) before the LED-getter nodes, to work
+  with the AliceVision nightly build (numpy 1 bindings).
 - At low resolution (1000 px test images), LED-getter discards poses and the textures come out black: use the
   full-resolution images.
 
@@ -155,6 +157,9 @@ If you use the dataset or these templates, please cite:
   title     = {Integrating Multi-view Multi-light Surface Reconstruction into Cultural Heritage Workflows},
   booktitle = {European Conference on Computer Vision (ECCV) Workshops, VISART},
   year      = {2026},
-  note      = {DOI forthcoming}
+  eprint    = {2609.15833},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url       = {https://arxiv.org/abs/2609.15833}
 }
 ```

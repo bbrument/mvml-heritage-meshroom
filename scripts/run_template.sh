@@ -11,12 +11,10 @@
 # Options (environment variables):
 #   GROUP_CAMERA_FALLBACK=global   one camera intrinsic for all the images, for images without a body serial number
 #                                  (e.g. JPEG converted from the NEF; not needed on the NEF of the dataset), see B12
-#   CONVERT_SFM=1                  add the B14 workaround to LED-getter projects (scripts/add_convert_sfm.py)
 # Works around R3: meshroom_batch keeps only the last of several `-i` values, so all the image folders are passed as
 # one comma-separated value.
 set -eu
 TPL=$(realpath "$1"); OBJ=$(realpath "$2"); OUT=$3; TO=${4:-}
-HERE=$(dirname "$(realpath "$0")")
 MESHROOM_SRC=${MESHROOM_SRC:-$(python -c 'import meshroom, os; print(os.path.dirname(os.path.dirname(meshroom.__file__)))')}
 mkdir -p "$OUT"; OUT=$(realpath "$OUT")
 PROJECT=$OUT/project.mg
@@ -37,7 +35,6 @@ EOF
     [ -n "$FOLDERS" ] || { echo "no image found in $OBJ"; exit 1; }
     python "$MESHROOM_SRC/bin/meshroom_batch" -i "$FOLDERS" -p "$T" --save "$PROJECT" --compute no > "$OUT/batch.log" 2>&1 \
         || { echo "meshroom_batch failed, see $OUT/batch.log"; tail -5 "$OUT/batch.log"; exit 1; }
-    [ -n "${CONVERT_SFM:-}" ] && python "$HERE/add_convert_sfm.py" "$PROJECT"
 fi
 python - "$PROJECT" <<'EOF'
 import json, sys

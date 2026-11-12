@@ -1,4 +1,4 @@
-# TODO at the Zenodo publication: paper DOI, dataset concept DOI.
+# TODO at the Zenodo publication: dataset concept DOI; proceedings DOI of the paper when available.
 cff-version: 1.2.0
 message: "If you use the dataset or these templates, please cite the paper below."
 title: "VISART dataset companion: Meshroom templates and installation guide"
@@ -43,3 +43,8 @@ preferred-citation:
   authors: *authors
   collection-title: "European Conference on Computer Vision (ECCV) Workshops, VISART"
   year: 2026
+  url: "https://arxiv.org/abs/2609.15833"
+  identifiers:
+    - type: other
+      value: "arXiv:2609.15833"
+      description: "arXiv preprint"

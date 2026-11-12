@@ -37,7 +37,8 @@ mrSegmentation), with a text prompt per object (`sculpture`, `stone`, `terracott
 
 **Warrior, biface, calathos (LED-getter).** RAW development to EXR, SAM 3 masks, structure-from-motion on all the
 images (MV and PS), dense photogrammetry on the MV images (the geometric proxy of LED-getter), export of the
-single-light PS images as linear EXR, light calibration (`LedGetterLights`), normals and albedo of each viewpoint
+single-light PS images as linear EXR (converted to `.sfm` by `ConvertSfMFormat`, see
+[B14](KNOWN_ISSUES.md#b14-led-getter-nodes-fail-with-a-numpy-1x-error)), light calibration (`LedGetterLights`), normals and albedo of each viewpoint
 (`LedGetterPS`), RNb-NeuS2 integration of the normals and the albedo, then texturing of the mesh (`Texturing`) with the
 albedo maps exported by RNb-NeuS2, brought to a common scale across the viewpoints. The faces seen by no viewpoint
 (e.g. the back of the calathos plaque, closed by RNb-NeuS2) are removed beforehand (`MeshRemoveUnseenFaces`).
@@ -87,9 +88,7 @@ scripts/run_template.sh templates/biface/biface_visart-eccv26.mgt /data/visart/b
 ```
 
 It passes the image folders as one value (`meshroom_batch -i` keeps only the last of several values, see
-[R3](KNOWN_ISSUES.md#r3-meshroom_batch--i-keeps-only-the-last-folder)). Add `CONVERT_SFM=1` for an AliceVision whose
-Python bindings are built against numpy 1, such as the nightly bundle
-([B14](KNOWN_ISSUES.md#b14-led-getter-nodes-fail-with-a-numpy-1x-error)).
+[R3](KNOWN_ISSUES.md#r3-meshroom_batch--i-keeps-only-the-last-folder)).
 
 Expect several hours per object at full resolution on a workstation GPU. The runs of
 [TESTED_VERSIONS.md](TESTED_VERSIONS.md) were made on 1000 px versions of the images (15-35 min).

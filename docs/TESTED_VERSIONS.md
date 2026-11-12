@@ -5,7 +5,9 @@
 Fresh install of the plugins with the plugin manager ([INSTALL.md](INSTALL.md)), then two templates run from the
 command line (`meshroom_batch` then `meshroom_compute`, as `scripts/run_template.sh` does) on 1000 px versions of the
 images of two objects (all the MV and PS images, converted from the NEF to JPEG). Only change to the templates:
-`CameraInit.groupCameraFallback=global`, needed by the converted JPEG only.
+`CameraInit.groupCameraFallback=global`, needed by the converted JPEG only. The templates had no `ConvertSfMFormat`
+node yet: on the workstation it was added to the LED-getter project by hand, giving the graph of the current
+templates; the laptop ran without it.
 
 ### Software
 
@@ -25,8 +27,8 @@ images of two objects (all the MV and PS images, converted from the NEF to JPEG)
 | Machine | GPU | AliceVision | `biface_visart-eccv26.mgt` (LED-getter) | `warrior_lino_unips.mgt` (LINO-UniPS) |
 | :-- | :-- | :-- | :-- | :-- |
 | Laptop, Ubuntu 22.04 | RTX 3080 Laptop, 16 GB (8.6) | `6f9f58ec`, bindings built against numpy 2 | all 20 nodes succeed, 21 min, 12.6 GB of GPU memory; 4 of 6 poses calibrated ([B17](KNOWN_ISSUES.md#b17-ledgetterlights-discards-poses-at-low-resolution)), mesh with holes; black texture ([R6](KNOWN_ISSUES.md#r6-black-texture-at-low-resolution)) | all 13 nodes succeed, 14 min, 11 GB; clean and detailed mesh; almost black texture (R6) |
-| Workstation, Ubuntu 22.04 | Quadro RTX 6000, 24 GB (7.5) | nightly `76d385c0` | all 20 nodes succeed with the [B14](KNOWN_ISSUES.md#b14-led-getter-nodes-fail-with-a-numpy-1x-error) workaround; 5 of 6 poses; black texture (R6) | fails at `LINOUniPS` ([R5](KNOWN_ISSUES.md#r5-lino-unips-fails-on-gpus-older-than-ampere)) |
-| Workstation, Ubuntu 22.04 | same | `6f9f58ec`, bindings built against numpy 1 | all 20 nodes succeed with the B14 workaround; 4 of 6 poses; black texture (R6) | not run (R5 expected) |
+| Workstation, Ubuntu 22.04 | Quadro RTX 6000, 24 GB (7.5) | nightly `76d385c0` | all 20 nodes succeed with the `ConvertSfMFormat` node ([B14](KNOWN_ISSUES.md#b14-led-getter-nodes-fail-with-a-numpy-1x-error)); 5 of 6 poses; black texture (R6) | fails at `LINOUniPS` ([R5](KNOWN_ISSUES.md#r5-lino-unips-fails-on-gpus-older-than-ampere)) |
+| Workstation, Ubuntu 22.04 | same | `6f9f58ec`, bindings built against numpy 1 | all 20 nodes succeed with the `ConvertSfMFormat` node; 4 of 6 poses; black texture (R6) | not run (R5 expected) |
 
 On both machines the plugin manager installed the four plugins without error (27 GB), and 8 of the 9 templates opened
 without `CompatibilityNode` (the ninth, `gourdan_bone_visart-eccv26.mgt`, needs mrUniMSPS, not installed there).
@@ -46,4 +48,5 @@ The templates of `templates/` were generated with `scripts/build_templates.py`, 
 [`edc4b6a2`](https://github.com/alicevision/Meshroom/commit/edc4b6a2), AliceVision `6f9f58ec` and the plugins of the
 official registry at [`266f167`](https://github.com/meshroomHub/pluginRegistry/commit/266f167): mrLedGetter v1.0.2,
 mrUniMSPS, mrSDMUniPS and mrLINOUniPS v2.0.3, mrRNbNeuS2 v1.1.2, and mrSegmentation `976a63b`. They open without
-`CompatibilityNode` with the v2.0.4 releases of the universal photometric stereo plugins.
+`CompatibilityNode` with the v2.0.4 releases of the universal photometric stereo plugins. Since 2026-11-12 the four
+LED-getter templates include a `ConvertSfMFormat` node in front of the LED-getter nodes; nothing else changed.

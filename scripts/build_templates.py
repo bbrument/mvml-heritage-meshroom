@@ -196,6 +196,18 @@ def addAlbedoTexturing(g, rnb):
     return texturing
 
 
+def addLedGetterInput(g, psImages, sfm):
+    """SfMData of the LED-getter nodes, converted to .sfm JSON (ConvertSfMFormat).
+
+    Workaround for B14 (docs/KNOWN_ISSUES.md): without it, the LED-getter nodes read the .abc/.usda export through the
+    AliceVision Python bindings, which fail in the numpy 2 environment of mrLedGetter when the bindings are built
+    against numpy 1 (nightly bundle). Kept in the templates until this is fixed.
+    """
+    convert = g.addNewNode("ConvertSfMFormat", input=psImages.outputSfMData, fileExt="sfm",
+                           describerTypes=list(sfm.describerTypes.value))
+    return convert.output
+
+
 def build_ledgetter(name, prompt, maskFeatures, turntableTags, withPhotometricStereo=True):
     """MVPS template with LED-getter (self-calibrated near-light photometric stereo on a photogrammetric proxy).
 
@@ -211,9 +223,10 @@ def build_ledgetter(name, prompt, maskFeatures, turntableTags, withPhotometricSt
     _, psImages = addUndistortedImages(g, psCameras.output, nodes["segmentation"], "exr")
 
     # Workstation settings, as for LINO: lights and normal maps at half resolution. Paper settings: downscale=1.
-    lights = g.addNewNode("LedGetterLights", inputSfm=psImages.outputSfMData, inputMesh=proxy.outputMesh, downscale=2,
+    ledInput = addLedGetterInput(g, psImages, nodes["sfm"])
+    lights = g.addNewNode("LedGetterLights", inputSfm=ledInput, inputMesh=proxy.outputMesh, downscale=2,
                           lightRig=name.split("_ledgetter")[0] in LIGHT_RIG_OBJECTS)
-    ps = g.addNewNode("LedGetterPS", inputSfm=psImages.outputSfMData, inputMesh=proxy.outputMesh,
+    ps = g.addNewNode("LedGetterPS", inputSfm=ledInput, inputMesh=proxy.outputMesh,
                       inputLights=lights.outputFolder, downscale=2)
     # LED-getter also estimates the albedo: RNb-NeuS2 uses it (two-phase training with albedo scaling)
     rnb = g.addNewNode("RNbNeuS2", inputNormalSfm=ps.outputSfmDataNormal, inputAlbedoSfm=ps.outputSfmDataAlbedo,
@@ -305,9 +318,10 @@ def build_ps_only_ledgetter(name, prompt):
     # Same workstation settings as build_ledgetter()
     poseReference = {"excludePoseReferenceImage": True, "maskPoseReferenceOnly": True,
                      "poseReferencePattern": POSE_REFERENCE_PATTERN}
-    lights = g.addNewNode("LedGetterLights", inputSfm=psImages.outputSfMData, inputMesh=proxy.outputMesh, downscale=2,
+    ledInput = addLedGetterInput(g, psImages, nodes["sfm"])
+    lights = g.addNewNode("LedGetterLights", inputSfm=ledInput, inputMesh=proxy.outputMesh, downscale=2,
                           lightRig=name in LIGHT_RIG_OBJECTS, **poseReference)
-    ps = g.addNewNode("LedGetterPS", inputSfm=psImages.outputSfMData, inputMesh=proxy.outputMesh,
+    ps = g.addNewNode("LedGetterPS", inputSfm=ledInput, inputMesh=proxy.outputMesh,
                       inputLights=lights.outputFolder, downscale=2, **poseReference)
     rnb = g.addNewNode("RNbNeuS2", inputNormalSfm=ps.outputSfmDataNormal, inputAlbedoSfm=ps.outputSfmDataAlbedo,
                        inputMaskFolder=ps.outputMaskFolder, scalingMode="silhouettes", meshResolution=512)

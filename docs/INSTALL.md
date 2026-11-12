@@ -44,9 +44,9 @@ things are missing from the November 2026 nightly and must be added by hand:
   [Meshroom 2025.1.0 release](https://github.com/alicevision/Meshroom/releases/tag/v2025.1.0).
 
 **From source.** Follow the [AliceVision build instructions](https://github.com/alicevision/AliceVision/blob/develop/INSTALL.md)
-on the develop branch (tested: [`6f9f58ec`](https://github.com/alicevision/AliceVision/commit/6f9f58ec)). Build the
-Python bindings (`pyalicevision`) against numpy 2 headers: they then work with both numpy 1 and numpy 2, which avoids
-[B14](KNOWN_ISSUES.md#b14-led-getter-nodes-fail-with-a-numpy-1x-error).
+on the develop branch (tested: [`6f9f58ec`](https://github.com/alicevision/AliceVision/commit/6f9f58ec)). The LED-getter
+templates work with Python bindings (`pyalicevision`) built against numpy 1 or numpy 2
+([B14](KNOWN_ISSUES.md#b14-led-getter-nodes-fail-with-a-numpy-1x-error)).
 
 ## 2. Meshroom
 

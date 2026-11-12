@@ -10,7 +10,7 @@ the scripts and the other pages can refer to them.
 | [R4](#r4-mrsegmentation-no-module-named-openimageio) | mrSegmentation (PR #85) | `ImageSegmentationSam3` fails | install OpenImageIO in its environment |
 | [R5](#r5-lino-unips-fails-on-gpus-older-than-ampere) | LINO-UniPS | no LINO template on GPUs < 8.0 | none (use an Ampere or newer GPU) |
 | [R6](#r6-black-texture-at-low-resolution) | Texturing | black texture at low resolution | none yet; full resolution not affected as far as we know |
-| [B14](#b14-led-getter-nodes-fail-with-a-numpy-1x-error) | AliceVision bindings / mrLedGetter | LED-getter nodes fail | `scripts/add_convert_sfm.py` |
+| [B14](#b14-led-getter-nodes-fail-with-a-numpy-1x-error) | AliceVision bindings / mrLedGetter | LED-getter nodes fail | in the templates (`ConvertSfMFormat` node) |
 | [B17](#b17-ledgetterlights-discards-poses-at-low-resolution) | mrLedGetter | poses discarded, holes in the mesh at low resolution | none at full resolution |
 | [Other issues](#other-issues) | install | | |
 
@@ -52,13 +52,10 @@ brings the texture back. Not seen on the full-resolution reconstructions of the 
 
 `LedGetterLights` fails with `A module that was compiled using NumPy 1.x cannot be run in NumPy 2.x`, followed by a
 `JSONDecodeError` that hides the cause. The environment of mrLedGetter has numpy 2, while the AliceVision Python
-bindings of the nightly bundle (November 2026) are built against numpy 1. **Workarounds:** build the bindings against
-numpy 2 headers (AliceVision from source), or insert a `ConvertSfMFormat` node (`.sfm` JSON) in front of the
-LED-getter nodes:
-
-```bash
-python scripts/add_convert_sfm.py <project.mg>          # or CONVERT_SFM=1 scripts/run_template.sh ...
-```
+bindings of the nightly bundle (November 2026) are built against numpy 1. **Workaround, in the templates:** the
+LED-getter templates convert the SfMData to `.sfm` JSON with a `ConvertSfMFormat` node in front of `LedGetterLights`
+and `LedGetterPS`, so that these nodes do not read it through the bindings. The node stays in the templates until the
+bindings or the plugin are fixed. Projects made from an earlier version of the templates need the same node.
 
 ## B17: LedGetterLights discards poses at low resolution
 
