@@ -13,12 +13,12 @@ only then); proceedings DOI of the paper when available (badges, BibTeX, CITATIO
 [![Meshroom develop](https://img.shields.io/badge/Meshroom-develop-green)](https://github.com/alicevision/Meshroom/tree/develop)
 
 [Baptiste Brument](https://bbrument.github.io/) · [Robin Bruneau](https://robinbruneau.github.io/) ·
-[Benjamin Coupry](https://scholar.google.com/citations?user=H5LhL7AAAAAJ) · Vincent Demoulin ·
+[Benjamin Coupry](https://scholar.google.com/citations?user=H5LhL7AAAAAJ) · [Vincent Demoulin](https://www.linkedin.com/in/vincent-demoulin-6b9562a9/) ·
 [Jean Mélou](https://scholar.google.com/citations?user=t9PRZ3AAAAAJ) ·
 [Antoine Laurent](https://cv.hal.science/antoine-laurent-archeologie) ·
 [Fabien Castan](https://www.linkedin.com/in/fabien-castan-99729453/) ·
 [Jean-Denis Durou](https://cv.hal.science/jean-denis-durou) ·
-[Lilian Calvet](https://rocs.balgrist.ch/en/dr-lilian-calvet/)
+[Lilian Calvet](https://www.linkedin.com/in/lilian-calvet-42b1a689/)
 
 **Companion repository of the VISART dataset** ([paper](https://arxiv.org/abs/2609.15833)): Meshroom templates, installation guide and tested versions to
 reconstruct the four archaeological objects of the paper from their raw multi-view and multi-light images. The images
