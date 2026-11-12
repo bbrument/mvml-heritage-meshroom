@@ -29,7 +29,7 @@ OBJECTS = {
     "biface": ("biface_ledgetter_rig", [("z", -90)], "Biface", 1.0),
     "calathos": ("calathos_ledgetter_rig", [("z", 90), ("x", 10)], "Calathos", 1.0),
     # elongated (about 4.5:1): turned to show the engraved animal, tilted close to vertical to take less width
-    "gourdan_bone": ("gourdan_bone_ledgetter_rig", [("x", 275), ("z", 242)], "Gourdan bone", 1.0),
+    "gourdan_bone": ("gourdan_bone_ledgetter_rig", [("x", 275), ("z", 62)], "Gourdan bone", 1.0),
 }
 LIGHT = np.array([-0.4, 0.5, 0.75])
 WHITE = 0.8  # linear albedo given to the brightest texels (99.5th percentile)

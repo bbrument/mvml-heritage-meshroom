@@ -12,13 +12,13 @@ only then); proceedings DOI of the paper when available (badges, BibTeX, CITATIO
 [![Code license: MIT](https://img.shields.io/badge/code-MIT-yellow)](LICENSE)
 [![Meshroom develop](https://img.shields.io/badge/Meshroom-develop-green)](https://github.com/alicevision/Meshroom/tree/develop)
 
-Baptiste Brument<sup>1</sup> · Robin Bruneau<sup>2</sup> · Benjamin Coupry<sup>1</sup> · Vincent Demoulin<sup>3</sup> ·
-Jean Mélou<sup>4</sup> · Antoine Laurent<sup>5</sup> · Fabien Castan<sup>3</sup> · Jean-Denis Durou<sup>1</sup> ·
-Lilian Calvet<sup>6</sup>
-
-<sup>1</sup> IRIT, UMR 5505, CNRS, Toulouse · <sup>2</sup> University of Zurich · <sup>3</sup> The Mill ·
-<sup>4</sup> Fittingbox, Labège · <sup>5</sup> TRACES, UMR 5608, CNRS, Toulouse ·
-<sup>6</sup> ROCS, Balgrist University Hospital, University of Zurich
+[Baptiste Brument](https://bbrument.github.io/) · [Robin Bruneau](https://robinbruneau.github.io/) ·
+[Benjamin Coupry](https://scholar.google.com/citations?user=H5LhL7AAAAAJ) · Vincent Demoulin ·
+[Jean Mélou](https://scholar.google.com/citations?user=t9PRZ3AAAAAJ) ·
+[Antoine Laurent](https://cv.hal.science/antoine-laurent-archeologie) ·
+[Fabien Castan](https://www.linkedin.com/in/fabien-castan-99729453/) ·
+[Jean-Denis Durou](https://cv.hal.science/jean-denis-durou) ·
+[Lilian Calvet](https://rocs.balgrist.ch/en/dr-lilian-calvet/)
 
 **Companion repository of the VISART dataset** ([paper](https://arxiv.org/abs/2609.15833)): Meshroom templates, installation guide and tested versions to
 reconstruct the four archaeological objects of the paper from their raw multi-view and multi-light images. The images
