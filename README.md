@@ -36,10 +36,10 @@ under several illuminations), as Nikon RAW files (NEF, 45.7 MP).
 
 | Object | MV images | PS viewpoints × lights | PS images | Method of the paper | Template |
 | :-- | --: | :-- | --: | :-- | :-- |
-| Warrior, terracotta head, 6th c. BC | 121 | 13 × 8-10 (hand-held flash) | 114 | LED-getter | [`warrior_visart-eccv26.mgt`](templates/warrior/warrior_visart-eccv26.mgt) |
-| Biface, flint | 162 | 12 × 13 (12-LED rig) | 156 | LED-getter | [`biface_visart-eccv26.mgt`](templates/biface/biface_visart-eccv26.mgt) |
-| Calathos, ceramic, 4th c. BC | 48 | 6 × 36, 1 × 106, 1 × 29 (RTI dome, flash) | 351 | LED-getter | [`calathos_visart-eccv26.mgt`](templates/calathos/calathos_visart-eccv26.mgt) |
-| Gourdan bone, engraved bone | (in PS) | 23 × 36 (RTI dome) | 828 | Uni-MS-PS | [`gourdan_bone_visart-eccv26.mgt`](templates/gourdan_bone/gourdan_bone_visart-eccv26.mgt) |
+| Warrior | 121 | 13 × 8-10 (hand-held flash) | 114 | LED-getter | [`warrior_visart-eccv26.mgt`](templates/warrior/warrior_visart-eccv26.mgt) |
+| Biface | 162 | 12 × 13 (12-LED rig) | 156 | LED-getter | [`biface_visart-eccv26.mgt`](templates/biface/biface_visart-eccv26.mgt) |
+| Calathos | 48 | 6 × 36, 1 × 106, 1 × 29 (RTI dome, flash) | 351 | LED-getter | [`calathos_visart-eccv26.mgt`](templates/calathos/calathos_visart-eccv26.mgt) |
+| Gourdan bone | (in PS) | 23 × 36 (RTI dome) | 828 | Uni-MS-PS | [`gourdan_bone_visart-eccv26.mgt`](templates/gourdan_bone/gourdan_bone_visart-eccv26.mgt) |
 
 Acquisition, file naming and object descriptions: see the [dataset page](https://doi.org/10.5281/zenodo.23500437).
 The dataset provides no masks: the templates compute them with SAM 3.
@@ -61,11 +61,23 @@ scripts/run_template.sh templates/biface/biface_visart-eccv26.mgt /data/visart/b
 
 ```text
 templates/
-├── warrior/        warrior_visart-eccv26.mgt        templates/warrior_lino_unips.mgt
-├── biface/         biface_visart-eccv26.mgt         templates/biface_lino_unips.mgt
-├── calathos/       calathos_visart-eccv26.mgt       templates/calathos_lino_unips.mgt
-└── gourdan_bone/   gourdan_bone_visart-eccv26.mgt   templates/gourdan_bone_lino_unips.mgt
-                                                     templates/gourdan_bone_led_getter.mgt
+├── warrior/
+│   ├── warrior_visart-eccv26.mgt            method of the paper (LED-getter)
+│   └── templates/
+│       └── warrior_lino_unips.mgt           alternative (LINO-UniPS)
+├── biface/
+│   ├── biface_visart-eccv26.mgt             method of the paper (LED-getter)
+│   └── templates/
+│       └── biface_lino_unips.mgt            alternative (LINO-UniPS)
+├── calathos/
+│   ├── calathos_visart-eccv26.mgt           method of the paper (LED-getter)
+│   └── templates/
+│       └── calathos_lino_unips.mgt          alternative (LINO-UniPS)
+└── gourdan_bone/
+    ├── gourdan_bone_visart-eccv26.mgt       method of the paper (Uni-MS-PS)
+    └── templates/
+        ├── gourdan_bone_lino_unips.mgt      alternative (LINO-UniPS)
+        └── gourdan_bone_led_getter.mgt      alternative (LED-getter)
 ```
 
 `[object]_visart-eccv26.mgt` reproduces the method of the paper; `templates/` holds alternatives (LINO-UniPS for all

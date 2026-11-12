@@ -32,6 +32,7 @@ OBJECTS = {
     "gourdan_bone": ("gourdan_bone_ledgetter_rig", [("x", -15), ("z", 28)], "Gourdan bone", 0.8),
 }
 LIGHT = np.array([-0.4, 0.5, 0.75])
+WHITE = 0.8  # linear albedo given to the brightest texels (99.5th percentile)
 
 
 def rotation(axis, degrees):
@@ -40,7 +41,8 @@ def rotation(axis, degrees):
 
 def loadObject(folder):
     mesh = trimesh.load(os.path.join(folder, "texturedMesh.obj"), process=False, force="mesh")
-    image = np.asarray(mesh.visual.material.image.convert("RGB"), dtype=np.float32) / 255.0
+    # the texture PNG is sRGB-encoded: decode to linear before shading
+    image = srgbToLinear(np.asarray(mesh.visual.material.image.convert("RGB"), dtype=np.float32) / 255.0)
     vertices = mesh.vertices - mesh.vertices.mean(axis=0)
     # PCA frame: x = largest extent, y = middle, z = smallest (towards the viewer)
     _, _, axes = np.linalg.svd(vertices[:: max(1, len(vertices) // 200000)], full_matrices=False)
@@ -78,8 +80,8 @@ def render(points, normals, colors, rot, height, light=LIGHT):
     order = np.argsort(z)  # far first, near points overwrite
     u, v, n, c = u[order], v[order], n[order], c[order]
     l = light / np.linalg.norm(light)
-    # albedo of arbitrary scale (LED-getter): bring the bright end to 1
-    c = c / max(np.percentile(c.max(axis=1), 99.5), 1e-3)
+    # albedo of arbitrary scale (LED-getter): same exposure for all objects, bright end at WHITE
+    c = c * (WHITE / max(np.percentile(c.max(axis=1), 99.5), 1e-3))
     shade = 0.25 + 0.85 * np.clip(n @ l, 0, None)
     layers = {
         "texture": np.clip(c * shade[:, None], 0, 1),
