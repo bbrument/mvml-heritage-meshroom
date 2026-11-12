@@ -25,12 +25,6 @@ reconstruct the four archaeological objects of the paper from their raw multi-vi
 are on [Zenodo](https://doi.org/10.5281/zenodo.23500437); this repository holds everything that changes with the
 software: versions, installation, settings, known issues.
 
-## Updates
-
-- **2026-11-12**: first version. The LED-getter templates include a `ConvertSfMFormat` node
-  ([B14](docs/KNOWN_ISSUES.md#b14-led-getter-nodes-fail-with-a-numpy-1x-error)). Templates in the `.mgt` format of Meshroom develop; end-to-end runs at low resolution
-  with the plugins installed by the Meshroom plugin manager ([tested versions](docs/TESTED_VERSIONS.md)).
-
 ## The dataset
 
 Four objects, each imaged as a multi-view set (MV, one illumination) and a multi-light set (PS, several viewpoints each
@@ -110,8 +104,7 @@ The templates need Meshroom **develop**. In short ([full guide](docs/INSTALL.md)
 ## Tested versions and known issues
 
 Last end-to-end test: **2026-11-12**, Meshroom develop `de4b5661` with the five fixes, AliceVision `6f9f58ec` or nightly,
-mrLedGetter v1.0.2, mrLINOUniPS v2.0.4, mrRNbNeuS2 v1.1.2, mrSegmentation `976a63b`, at low resolution, on two of the
-nine templates ([details](docs/TESTED_VERSIONS.md)).
+mrLedGetter v1.0.2, mrLINOUniPS v2.0.4, mrRNbNeuS2 v1.1.2, mrSegmentation `976a63b` ([details](docs/TESTED_VERSIONS.md)).
 
 Main limitations ([all issues and workarounds](docs/KNOWN_ISSUES.md)):
 
@@ -119,8 +112,6 @@ Main limitations ([all issues and workarounds](docs/KNOWN_ISSUES.md)):
 - mrSegmentation is not in the official registry yet, and misses a dependency (OpenImageIO).
 - The LED-getter templates convert the SfMData to `.sfm` (`ConvertSfMFormat`) before the LED-getter nodes, to work
   with the AliceVision nightly build (numpy 1 bindings).
-- At low resolution (1000 px test images), LED-getter discards poses and the textures come out black: use the
-  full-resolution images.
 
 ## Related projects
 
@@ -163,3 +154,7 @@ If you use the dataset or these templates, please cite:
   url       = {https://arxiv.org/abs/2609.15833}
 }
 ```
+
+## Updates
+
+- **2026-11-12**: first version. History of the changes and of the tests: [docs/CHANGELOG.md](docs/CHANGELOG.md).
