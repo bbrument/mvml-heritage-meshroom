@@ -1,0 +1,15 @@
+{
+    "name": "visartSegmentation",
+    "description": "mrSegmentation at the head of meshroomHub/mrSegmentation PR #85 (not yet in the official registry)",
+    "url": "",
+    "entries": [
+        {
+            "name": "mrSegmentation",
+            "url": "https://github.com/meshroomHub/mrSegmentation",
+            "versions": ["pr85+976a63b"],
+            "publisher": "meshroomHub",
+            "description": "Segmentation and matting nodes for Meshroom (SAM 3).",
+            "license": "MPL-2.0"
+        }
+    ]
+}

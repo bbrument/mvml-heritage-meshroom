@@ -1,0 +1,45 @@
+# TODO at the Zenodo publication: paper DOI, dataset concept DOI.
+cff-version: 1.2.0
+message: "If you use the dataset or these templates, please cite the paper below."
+title: "VISART dataset companion: Meshroom templates and installation guide"
+type: software
+license: MIT
+repository-code: "https://github.com/bbrument/visart-eccv26"
+authors: &authors
+  - family-names: Brument
+    given-names: Baptiste
+    affiliation: "IRIT, UMR 5505, CNRS, Toulouse, France"
+  - family-names: Bruneau
+    given-names: Robin
+    affiliation: "University of Zurich, Switzerland"
+  - family-names: Coupry
+    given-names: Benjamin
+    affiliation: "IRIT, UMR 5505, CNRS, Toulouse, France"
+  - family-names: Demoulin
+    given-names: Vincent
+    affiliation: "The Mill, France"
+  - family-names: Mélou
+    given-names: Jean
+    affiliation: "Fittingbox, Labège, France"
+  - family-names: Laurent
+    given-names: Antoine
+    affiliation: "TRACES, UMR 5608, CNRS, Toulouse, France"
+  - family-names: Castan
+    given-names: Fabien
+    affiliation: "The Mill, France"
+  - family-names: Durou
+    given-names: Jean-Denis
+    affiliation: "IRIT, UMR 5505, CNRS, Toulouse, France"
+  - family-names: Calvet
+    given-names: Lilian
+    affiliation: "ROCS, Balgrist University Hospital, University of Zurich, Switzerland"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23500437
+    description: "VISART dataset (Zenodo)"
+preferred-citation:
+  type: conference-paper
+  title: "Integrating Multi-view Multi-light Surface Reconstruction into Cultural Heritage Workflows"
+  authors: *authors
+  collection-title: "European Conference on Computer Vision (ECCV) Workshops, VISART"
+  year: 2026
