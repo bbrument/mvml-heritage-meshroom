@@ -108,12 +108,12 @@ name `mrLedGetter` also works.
 | | Issue | Workaround |
 | :-- | :-- | :-- |
 | B7 | `meshroom_compute` with a relative project path | absolute path (`scripts/run_template.sh`) |
-| B9 | USD resources missing from the AliceVision nightly builds older than `92b5846f` (2026-11-12): `.usda` exports stop | a newer nightly build, [INSTALL.md, step 1](INSTALL.md#b-from-source) |
+| B9 | USD resources missing from the AliceVision nightly builds older than `92b5846f` (2026-11-12): `.usda` exports stop | a newer nightly build, [INSTALL.md](INSTALL.md#from-source) |
 | B10 | mrSegmentation (PR #85) pins PyTorch 2.5.1 + CUDA 12.4, without kernels for Blackwell GPUs (RTX 50xx) | expected, not tested |
 | B12 | `meshroom_batch --paramOverrides` is applied after the images are imported, too late for `CameraInit` | `GROUP_CAMERA_FALLBACK=global scripts/run_template.sh …` (only for images without a body serial number, e.g. converted JPEG) |
-| B13 | vocabulary tree and detection models missing from the nightly builds (AliceVision and Meshroom bundle) and from source installs | [INSTALL.md, step 1](INSTALL.md#1-meshroom-and-alicevision) |
+| B13 | vocabulary tree and detection models missing from the nightly builds (AliceVision and Meshroom bundle) and from source installs | [INSTALL.md, step 1](INSTALL.md#1-meshroom) |
 | B15 | Open3D (mrLedGetter) needs `libusb-1.0.so.0` | install `libusb-1.0` |
-| N1 | without the pull requests of the plugin manager (e.g. the Meshroom nightly bundle), `meshroom_plugins install -f mrRNbNeuS2` reports success without installing the RNb-NeuS2 testbed (only a warning `Invalid entry in 'assets'`) | [INSTALL.md, step 3](INSTALL.md#3-rnb-neus2-testbed) |
+| N1 | without the pull requests of the plugin manager (e.g. the Meshroom nightly bundle), `meshroom_plugins install -f mrRNbNeuS2` reports success without installing the RNb-NeuS2 testbed (only a warning `Invalid entry in 'assets'`) | [INSTALL.md, step 2](INSTALL.md#2-plugins) |
 | J5 | Meshroom nightly bundle: `Failed to load … SDMatte.py … No module named 'chunk'` at each command (mrSegmentation PR #85 imports a module that the bundle's Python lacks) | none needed: no template uses `SDMatte` |
 | B16 | segmentation fault at `import sphericart.jax` (mrLedGetter) when no unversioned `libcudart.so` / `libnvrtc.so` is on the library path | a CUDA 12 toolkit registered in `ld.so.conf`, or links `libcudart.so`, `libnvrtc.so` in `mrLedGetter/venv/lib/` to the `.so.12` of the `nvidia-*` wheels |
 | | `meshroom_plugins` without a terminal: `EOFError` | `-f` |

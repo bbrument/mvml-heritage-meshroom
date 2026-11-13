@@ -92,16 +92,8 @@ The templates are set for a 16 GB GPU. To reproduce the settings of the paper (N
 
 ## Installation
 
-The templates need Meshroom **develop**. In short ([full guide](docs/INSTALL.md)):
-
-- Meshroom develop and AliceVision: either the Meshroom nightly bundle (one archive), or from source, with five open
-  fixes of the plugin manager merged locally
-  ([#3256](https://github.com/alicevision/Meshroom/pull/3256)-[#3260](https://github.com/alicevision/Meshroom/pull/3260));
-  both need a few resources missing from the nightly builds;
-- the plugins, with `meshroom_plugins install`: mrLedGetter, mrUniMSPS, mrLINOUniPS, mrRNbNeuS2 from the official
-  registry, mrSegmentation through [`registry/visartSegmentation.json`](registry/visartSegmentation.json);
-- the RNb-NeuS2 testbed, by hand with the nightly bundle;
-- the SAM 3 checkpoint, from Hugging Face (gated model).
+Meshroom **develop** (nightly bundle), five plugins and the SAM 3 checkpoint, about two hours:
+[docs/INSTALL.md](docs/INSTALL.md).
 
 ## Tested versions and known issues
 
