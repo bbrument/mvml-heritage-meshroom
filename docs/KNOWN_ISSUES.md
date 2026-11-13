@@ -12,6 +12,7 @@ the scripts and the other pages can refer to them.
 | [R6](#r6-black-texture-at-low-resolution) | Texturing | black texture at low resolution | none yet; full resolution not affected as far as we know |
 | [B14](#b14-led-getter-nodes-fail-with-a-numpy-1x-error) | AliceVision bindings / mrLedGetter | LED-getter nodes fail | in the templates (`ConvertSfMFormat` node) |
 | [B17](#b17-ledgetterlights-discards-poses-at-low-resolution) | mrLedGetter | poses discarded, holes in the mesh at low resolution | none at full resolution |
+| [J1](#j1-mrledgetter-does-not-install-on-glibc-234) | mrLedGetter (Open3D) | does not install on glibc 2.34 (RHEL, Rocky Linux 9) | install a copy that constrains Open3D |
 | [Other issues](#other-issues) | install | | |
 
 ## R3: `meshroom_batch -i` keeps only the last folder
@@ -25,7 +26,7 @@ each value under the same key. **Workaround:** pass all the folders as one comma
 
 `ImageSegmentationSam3` fails at `segmentationRDS/image.py: import OpenImageIO`: the plugin (PR #85) does not declare
 OpenImageIO, and neither the nightly bundle nor a build from source provides its Python module to the plugin
-environment. **Workaround** ([INSTALL.md, step 4](INSTALL.md#4-plugins)):
+environment. **Workaround** ([INSTALL.md, step 2](INSTALL.md#2-plugins)):
 
 ```bash
 uv pip install --python $MESHROOM_LOCAL_PLUGINS_PATH/mrSegmentation/venv/bin/python "numpy==1.26.4" "OpenImageIO<3.1.7"
@@ -64,16 +65,56 @@ bindings or the plugin are fixed. Projects made from an earlier version of the t
 set, 2 of the 6 calibrated poses fall below it (38 and 48), and the RNb-NeuS2 mesh has holes on the faces they see. At
 full resolution (8288 px) the poses have about 65 times more samples and the threshold is not reached.
 
+## J1: mrLedGetter does not install on glibc 2.34
+
+`meshroom_plugins install -f mrLedGetter` fails after a few seconds with `UV command failed (exit code 2)` on glibc
+2.34 (RHEL and Rocky Linux 9): mrLedGetter v1.0.2 has no lock file and no bound on Open3D, `uv` takes Open3D 0.20.0,
+whose Linux wheels need glibc 2.35. Without the pull requests of the plugin manager (nightly bundle), the command
+still exits with 0. **Workaround** (tested on Rocky Linux 9): install a copy of the plugin whose `pyproject.toml`
+constrains Open3D to 0.19, from a local registry file:
+
+```bash
+git clone --depth 1 --branch v1.0.2 https://github.com/meshroomHub/mrLedGetter.git mrLedGetter-v1.0.2
+sed -i '/^package = false/a constraint-dependencies = ["open3d<0.20"]' mrLedGetter-v1.0.2/pyproject.toml
+rm -rf mrLedGetter-v1.0.2/.git && zip -qr $PWD/mrLedGetter-v1.0.2-open3d019.zip mrLedGetter-v1.0.2
+```
+
+then save as `$P/ledGetterOpen3d019.json` (`$P`: plugin folder, see [INSTALL.md](INSTALL.md#2-plugins)):
+
+```json
+{
+    "name": "ledGetterOpen3d019",
+    "description": "mrLedGetter v1.0.2 with open3d<0.20 (glibc 2.34)",
+    "url": "",
+    "entries": [
+        {
+            "name": "mrLedGetterO3d019",
+            "url": "file:///path/to/mrLedGetter-v1.0.2-open3d019.zip",
+            "versions": ["dev+open3d019"],
+            "publisher": "meshroomHub",
+            "description": "LED-getter, open3d < 0.20",
+            "license": "MIT"
+        }
+    ]
+}
+```
+
+and run `meshroom_plugins install -f mrLedGetterO3d019` (it installs into `$P/mrLedGetter`). The entry needs a name
+of its own: without the pull requests, the official registry hides a local entry of the same name. With them, the
+name `mrLedGetter` also works.
+
 ## Other issues
 
 | | Issue | Workaround |
 | :-- | :-- | :-- |
 | B7 | `meshroom_compute` with a relative project path | absolute path (`scripts/run_template.sh`) |
-| B9 | USD resources missing from the AliceVision nightly: `.usda` exports stop | [INSTALL.md, step 1](INSTALL.md#1-alicevision) |
+| B9 | USD resources missing from the AliceVision nightly builds older than `92b5846f` (2026-11-12): `.usda` exports stop | a newer nightly build, [INSTALL.md, step 1](INSTALL.md#b-from-source) |
 | B10 | mrSegmentation (PR #85) pins PyTorch 2.5.1 + CUDA 12.4, without kernels for Blackwell GPUs (RTX 50xx) | expected, not tested |
 | B12 | `meshroom_batch --paramOverrides` is applied after the images are imported, too late for `CameraInit` | `GROUP_CAMERA_FALLBACK=global scripts/run_template.sh …` (only for images without a body serial number, e.g. converted JPEG) |
-| B13 | vocabulary tree and detection models missing from the AliceVision nightly and from source installs | [INSTALL.md, step 1](INSTALL.md#1-alicevision) |
+| B13 | vocabulary tree and detection models missing from the nightly builds (AliceVision and Meshroom bundle) and from source installs | [INSTALL.md, step 1](INSTALL.md#1-meshroom-and-alicevision) |
 | B15 | Open3D (mrLedGetter) needs `libusb-1.0.so.0` | install `libusb-1.0` |
+| N1 | without the pull requests of the plugin manager (e.g. the Meshroom nightly bundle), `meshroom_plugins install -f mrRNbNeuS2` reports success without installing the RNb-NeuS2 testbed (only a warning `Invalid entry in 'assets'`) | [INSTALL.md, step 3](INSTALL.md#3-rnb-neus2-testbed) |
+| J5 | Meshroom nightly bundle: `Failed to load … SDMatte.py … No module named 'chunk'` at each command (mrSegmentation PR #85 imports a module that the bundle's Python lacks) | none needed: no template uses `SDMatte` |
 | B16 | segmentation fault at `import sphericart.jax` (mrLedGetter) when no unversioned `libcudart.so` / `libnvrtc.so` is on the library path | a CUDA 12 toolkit registered in `ld.so.conf`, or links `libcudart.so`, `libnvrtc.so` in `mrLedGetter/venv/lib/` to the `.so.12` of the `nvidia-*` wheels |
 | | `meshroom_plugins` without a terminal: `EOFError` | `-f` |
 | | the `.mgt` files record no plugin version: a template opens without warning with other plugin versions | compare with [tested versions](TESTED_VERSIONS.md) |

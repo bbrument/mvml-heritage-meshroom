@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 """Load Meshroom templates/projects; report CompatibilityNodes, and the node versions recorded in the file header
 against the installed node descriptions.
-Usage (Meshroom environment set, see docs/INSTALL.md): python check_templates.py <file.mgt|file.mg> [...]   Exit 1 if any CompatibilityNode."""
+Usage (Meshroom environment set, see docs/INSTALL.md): python check_templates.py <file.mgt|file.mg> [...]   Exit 1 if any CompatibilityNode.
+With the Meshroom nightly bundle, run it with the Python of the bundle (docs/INSTALL.md, step 7)."""
 import json
 import sys
 
-import meshroom.core
-from meshroom.core.graph import loadGraph
+import meshroom
+# as meshroom_batch does: with MESHROOM_INSTALL_DIR (nightly bundle), sets the AliceVision nodes, templates and
+# variables of the bundle; no effect on an install from source
+meshroom.setupEnvironment()
+import meshroom.core  # noqa: E402
+from meshroom.core.graph import loadGraph  # noqa: E402
 
 
 def main():

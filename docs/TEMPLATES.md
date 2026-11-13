@@ -81,10 +81,12 @@ window (*File > Open* lists only `.mg` files), then drop the object folder on th
 *File > New*, add the folder that holds them to `MESHROOM_PIPELINE_TEMPLATES_PATH`.
 
 **From the command line.** `scripts/run_template.sh` creates the project with `meshroom_batch` and computes it with
-`meshroom_compute` (environment of [INSTALL.md](INSTALL.md) sourced):
+`meshroom_compute`. From source, source the environment of [INSTALL.md](INSTALL.md) first; with the Meshroom nightly
+bundle, set `MESHROOM_BUNDLE` to the bundle folder:
 
 ```bash
 scripts/run_template.sh templates/biface/biface_visart-eccv26.mgt /data/visart/biface /data/runs/biface
+MESHROOM_BUNDLE=/path/to/Meshroom-2026.11.12-1d22fba-linux scripts/run_template.sh …   # nightly bundle
 ```
 
 It passes the image folders as one value (`meshroom_batch -i` keeps only the last of several values, see
