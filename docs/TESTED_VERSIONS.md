@@ -8,7 +8,7 @@ Templates of `templates/` as published, default settings, NEF images of the data
 | :-- | :-- | :-- | :-- | :-- | :-- |
 | Workstation, Ubuntu 26.04 | Quadro RTX 5000, 16 GB | 5 h 38 | 5 h 16 | 7 h 14 | not run ([R5](KNOWN_ISSUES.md#r5-lino-unips-fails-on-gpus-older-than-ampere)) |
 | Workstation, Ubuntu 22.04 | Quadro RTX 6000, 24 GB | 5 h 19 | 6 h 13 | 7 h 33 | not run (R5) |
-| Cluster, Rocky Linux 9 | A100 | 3 h 08 | 3 h 53 | 5 h 25 (SfM failed once, see [KNOWN_ISSUES](KNOWN_ISSUES.md)) | 2 h 24 |
+| Cluster, Rocky Linux 9 | A100 | 3 h 08 | 3 h 53 | 5 h 25 | 2 h 24 |
 
 All nodes succeed; all PS viewpoints calibrated (13/13, 12/12, 8/8); textured meshes checked visually.
 

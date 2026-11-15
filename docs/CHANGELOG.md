@@ -4,13 +4,10 @@ Changes of the templates, of the installation guide and of the tested versions. 
 
 ## Unreleased
 
-- Installation guide: the Meshroom nightly bundle as a second way (way A); the RNb-NeuS2 testbed installed by hand
-  with it ([N1](KNOWN_ISSUES.md#other-issues)); the USD resources are no longer needed from the AliceVision nightly
-  `92b5846f` ([B9](KNOWN_ISSUES.md#other-issues)); glibc 2.35 or newer for mrLedGetter, workaround for glibc 2.34
-  ([J1](KNOWN_ISSUES.md#j1-mrledgetter-does-not-install-on-glibc-234)); disk and GPU memory of the full-resolution
-  runs.
-- `scripts/run_template.sh`: `MESHROOM_BUNDLE` runs the commands of the nightly bundle.
-- `scripts/check_templates.py`: works with the Python of the nightly bundle.
+- Tests at full resolution on three machines ([tested versions](TESTED_VERSIONS.md)).
+- Installation: Meshroom nightly bundle or from source; shorter docs.
+- `scripts/run_template.sh`: `MESHROOM_BUNDLE` for the nightly bundle; `scripts/check_templates.py` runs with its
+  Python.
 
 ## 2026-11-12
 

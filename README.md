@@ -20,10 +20,9 @@ only then); proceedings DOI of the paper when available (badges, BibTeX, CITATIO
 [Jean-Denis Durou](https://cv.hal.science/jean-denis-durou) ·
 [Lilian Calvet](https://www.linkedin.com/in/lilian-calvet-42b1a689/)
 
-**Companion repository of the VISART dataset** ([paper](https://arxiv.org/abs/2609.15833)): Meshroom templates, installation guide and tested versions to
-reconstruct the four archaeological objects of the paper from their raw multi-view and multi-light images. The images
-are on [Zenodo](https://doi.org/10.5281/zenodo.23500437); this repository holds everything that changes with the
-software: versions, installation, settings, known issues.
+**Companion repository of the VISART dataset** ([paper](https://arxiv.org/abs/2609.15833)): Meshroom templates to
+reconstruct its four archaeological objects from the raw images, installation guide, tested versions. Images on
+[Zenodo](https://doi.org/10.5281/zenodo.23500437).
 
 ## The dataset
 
@@ -37,17 +36,14 @@ under several illuminations), as Nikon RAW files (NEF, 45.7 MP).
 | Calathos | 48 | 6 × 36, 1 × 106, 1 × 29 (RTI dome, flash) | 351 | LED-getter | [`calathos_visart-eccv26.mgt`](templates/calathos/calathos_visart-eccv26.mgt) |
 | Gourdan bone | (in PS) | 23 × 36 (RTI dome) | 828 | Uni-MS-PS | [`gourdan_bone_visart-eccv26.mgt`](templates/gourdan_bone/gourdan_bone_visart-eccv26.mgt) |
 
-Acquisition, file naming and object descriptions: see the [dataset page](https://doi.org/10.5281/zenodo.23500437).
-The dataset provides no masks: the templates compute them with SAM 3.
+Details: [dataset page](https://doi.org/10.5281/zenodo.23500437). No masks: the templates compute them with SAM 3.
 
 ## Quick start
 
-1. Download `[object]_MV.zip` and `[object]_PS.zip` from [Zenodo](https://doi.org/10.5281/zenodo.23500437) and extract
-   them in the same folder.
-2. Install Meshroom develop, AliceVision and the plugins: [docs/INSTALL.md](docs/INSTALL.md).
-3. Copy `templates/[object]/` of this repository into the extracted `[object]/` folder.
-4. Open the template in Meshroom (*Open Template*), drop the object folder on the image gallery and compute, or, from
-   the command line:
+1. Download and extract `[object]_MV.zip` and `[object]_PS.zip` from [Zenodo](https://doi.org/10.5281/zenodo.23500437).
+2. Install Meshroom and the plugins: [docs/INSTALL.md](docs/INSTALL.md).
+3. Copy `templates/[object]/` into the extracted `[object]/` folder.
+4. Open the template in Meshroom (*Open Template*) and drop the object folder on the gallery, or:
 
 ```bash
 scripts/run_template.sh templates/biface/biface_visart-eccv26.mgt /data/visart/biface /data/runs/biface
@@ -76,19 +72,8 @@ templates/
         └── gourdan_bone_led_getter.mgt      alternative (LED-getter)
 ```
 
-`[object]_visart-eccv26.mgt` reproduces the method of the paper; `templates/` holds alternatives (LINO-UniPS for all
-objects, LED-getter for the Gourdan bone). Each pipeline goes from the RAW images to a mesh textured with the albedo:
-SAM 3 masks, structure-from-motion, photometric stereo per viewpoint, RNb-NeuS2 integration of the normals and albedo,
-texturing. Details, and how to regenerate the templates with `scripts/build_templates.py`:
+Pipelines, settings of the paper (A100: `downscale` 1, all lights, `meshResolution` 1024) and regeneration:
 [docs/TEMPLATES.md](docs/TEMPLATES.md).
-
-The templates are set for a 16 GB GPU. To reproduce the settings of the paper (NVIDIA A100):
-
-| Setting | Templates | Paper |
-| :-- | :-- | :-- |
-| `downscale` of the photometric stereo nodes | 2 | 1 |
-| `nbImages` of `UniMSPS` and `LINOUniPS` | 10 | -1 (all) |
-| `meshResolution` of `RNbNeuS2` | 512 | 1024 |
 
 ## Installation
 
@@ -97,15 +82,9 @@ Meshroom **develop** (nightly bundle), five plugins and the SAM 3 checkpoint, ab
 
 ## Tested versions and known issues
 
-Last test: **November 2026**, the three LED-getter templates and `gourdan_bone_lino_unips.mgt` at full resolution on
-three machines ([details](docs/TESTED_VERSIONS.md)).
-
-Main limitations ([all issues and workarounds](docs/KNOWN_ISSUES.md)):
-
-- LINO-UniPS needs a GPU of compute capability 8.0 or newer (Ampere).
-- mrSegmentation is not in the official registry yet, and misses a dependency (OpenImageIO).
-- The LED-getter templates convert the SfMData to `.sfm` (`ConvertSfMFormat`) before the LED-getter nodes, to work
-  with the AliceVision nightly build (numpy 1 bindings).
+Tested in November 2026 at full resolution on three machines: [docs/TESTED_VERSIONS.md](docs/TESTED_VERSIONS.md).
+Known issues (LINO-UniPS needs an Ampere or newer GPU; mrSegmentation not yet in the official registry):
+[docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md).
 
 ## Related projects
 
