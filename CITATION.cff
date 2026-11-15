@@ -4,7 +4,7 @@ message: "If you use the dataset or these templates, please cite the paper below
 title: "VISART dataset companion: Meshroom templates and installation guide"
 type: software
 license: MIT
-repository-code: "https://github.com/bbrument/visart-eccv26"
+repository-code: "https://github.com/bbrument/mvml-heritage-meshroom"
 authors: &authors
   - family-names: Brument
     given-names: Baptiste

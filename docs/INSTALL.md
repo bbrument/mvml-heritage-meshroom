@@ -6,7 +6,7 @@ Disk: 30 GB for Meshroom and the plugins, 3.5 GB for SAM 3; per object, 17-39 GB
 ## 1. Meshroom develop (nightly bundle)
 
 ```bash
-git clone https://github.com/bbrument/visart-eccv26.git && R=$PWD/visart-eccv26
+git clone https://github.com/bbrument/mvml-heritage-meshroom.git && R=$PWD/mvml-heritage-meshroom
 wget https://github.com/alicevision/Meshroom/releases/download/nightly/Meshroom-2026.11.12-1d22fba-linux-full.tar.gz
 tar xzf Meshroom-2026.11.12-1d22fba-linux-full.tar.gz
 M=$PWD/Meshroom-2026.11.12-1d22fba-linux; AV=$M/aliceVision; MP=$M/meshroom_plugins; P=$M/plugins
