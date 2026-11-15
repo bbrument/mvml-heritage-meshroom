@@ -1,13 +1,13 @@
 # Installation
 
-Linux x86_64, glibc ≥ 2.35, NVIDIA GPU with 16 GB. Versions: [TESTED_VERSIONS.md](TESTED_VERSIONS.md).
+Linux x86_64, glibc ≥ 2.35, NVIDIA GPU with 16 GB, 64 GB of RAM. Versions: [TESTED_VERSIONS.md](TESTED_VERSIONS.md).
 Problems: [Troubleshooting](#troubleshooting).
 
 | Disk | |
 | :-- | :-- |
 | Meshroom and plugins | 30 GB |
 | SAM 3 checkpoint | 3.5 GB |
-| One object, full resolution | 17-39 GB of images + about 125 GB of project |
+| One object, full resolution | 17-39 GB of images + 97-145 GB of project |
 
 ## 1. Meshroom
 
@@ -105,6 +105,7 @@ Then edit and source [`scripts/env_source.sh`](../scripts/env_source.sh), and fo
 | `EOFError` from `meshroom_plugins` | add `-f` |
 | `No module named 'chunk'` (SDMatte) | harmless, [J5](KNOWN_ISSUES.md#other-issues) |
 | Open3D: `libusb-1.0.so.0` not found | `sudo apt install libusb-1.0-0` |
+| SLURM job killed (out of memory) | reserve the whole node's RAM: the nodes size themselves on the machine, not on the job (64 GB killed, 240 GB OK) |
 | `Failed to find the plugInfo.json …` | AliceVision nightly older than `92b5846f`, [B9](KNOWN_ISSUES.md#other-issues) |
 
 More: [KNOWN_ISSUES.md](KNOWN_ISSUES.md).

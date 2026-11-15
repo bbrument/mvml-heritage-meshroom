@@ -9,7 +9,7 @@ the scripts and the other pages can refer to them.
 | [R3](#r3-meshroom_batch--i-keeps-only-the-last-folder) | Meshroom `meshroom_batch` | only the last image folder is imported | one comma-separated value (`scripts/run_template.sh`) |
 | [R4](#r4-mrsegmentation-no-module-named-openimageio) | mrSegmentation (PR #85) | `ImageSegmentationSam3` fails | install OpenImageIO in its environment |
 | [R5](#r5-lino-unips-fails-on-gpus-older-than-ampere) | LINO-UniPS | no LINO template on GPUs < 8.0 | none (use an Ampere or newer GPU) |
-| [R6](#r6-black-texture-at-low-resolution) | Texturing | black texture at low resolution | none yet; full resolution not affected as far as we know |
+| [R6](#r6-black-texture-at-low-resolution) | Texturing | black texture at low resolution | none needed at full resolution |
 | [B14](#b14-led-getter-nodes-fail-with-a-numpy-1x-error) | AliceVision bindings / mrLedGetter | LED-getter nodes fail | in the templates (`ConvertSfMFormat` node) |
 | [B17](#b17-ledgetterlights-discards-poses-at-low-resolution) | mrLedGetter | poses discarded, holes in the mesh at low resolution | none at full resolution |
 | [J1](#j1-mrledgetter-does-not-install-on-glibc-234) | mrLedGetter (Open3D) | does not install on glibc 2.34 (RHEL, Rocky Linux 9) | install a copy that constrains Open3D |
@@ -47,7 +47,7 @@ therefore need an Ampere (8.x), Ada or newer GPU. The LED-getter and Uni-MS-PS t
 On the 1000 px test sets, the `Texturing` node ends in SUCCESS but writes an almost black texture (biface LED-getter:
 0 % of non-black texels; warrior LINO: 1 %). It does not depend on the machine nor on the AliceVision build. Tests
 point to the density of the mesh relative to the size of the albedo texels (500 px albedo maps): decimating the mesh
-brings the texture back. Not seen on the full-resolution reconstructions of the paper; the templates are unchanged.
+brings the texture back. Not seen at full resolution (all the runs of November 2026); the templates are unchanged.
 
 ## B14: LED-getter nodes fail with a numpy 1.x error
 
@@ -63,7 +63,8 @@ bindings or the plugin are fixed. Projects made from an earlier version of the t
 `LedGetterLights` drops a pose when fewer than 50 sampled pixels of its mask see the proxy mesh
 (`MIN_PIXELS = 50` in `LedGetterLights.py`, not exposed as an input). The count is absolute: on the 1000 px biface
 set, 2 of the 6 calibrated poses fall below it (38 and 48), and the RNb-NeuS2 mesh has holes on the faces they see. At
-full resolution (8288 px) the poses have about 65 times more samples and the threshold is not reached.
+full resolution (8288 px) the poses have about 65 times more samples: all the poses were kept in the runs of November
+2026.
 
 ## J1: mrLedGetter does not install on glibc 2.34
 

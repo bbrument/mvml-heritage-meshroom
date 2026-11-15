@@ -97,8 +97,8 @@ Meshroom **develop** (nightly bundle), five plugins and the SAM 3 checkpoint, ab
 
 ## Tested versions and known issues
 
-Last end-to-end test: **2026-11-12**, Meshroom develop `de4b5661` with the five fixes, AliceVision `6f9f58ec` or nightly,
-mrLedGetter v1.0.2, mrLINOUniPS v2.0.4, mrRNbNeuS2 v1.1.2, mrSegmentation `976a63b` ([details](docs/TESTED_VERSIONS.md)).
+Last test: **November 2026**, the three LED-getter templates and `gourdan_bone_lino_unips.mgt` at full resolution on
+three machines ([details](docs/TESTED_VERSIONS.md)).
 
 Main limitations ([all issues and workarounds](docs/KNOWN_ISSUES.md)):
 
