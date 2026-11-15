@@ -1,14 +1,15 @@
 #!/usr/bin/env python
-"""Build the minimal VISART MVPS Meshroom templates (one per object).
+"""Build the VISART Meshroom templates of templates/.
 
-CameraInit (MV/ + PS/PS_xx/) -> ImageProcessing (exr) -> ImageSegmentationSam3 -> FeatureExtraction (+ tag16h5)
--> ImageMatching -> FeatureMatching -> StructureFromMotion -> IntrinsicsTransforming -> ExportImages
--> LINOUniPS -> RNbNeuS2
-
-All images (MV and every illumination of every PS pose) go through the SfM; the photometric
-stereo node ignores the single-view MV poses (requires the photometric stereo plugins with
-meshroomHub PR #1). The Gourdan bone has no separate MV set: it uses the PS-only graph of
+Common head: CameraInit (MV/ + PS/PS_xx/) -> ImageProcessing (EXR) -> ImageSegmentationSam3 -> FeatureExtraction
+-> ImageMatching -> FeatureMatching -> StructureFromMotion -> IntrinsicsTransforming -> ExportImages, then the
+photometric stereo (LED-getter: dense photogrammetry of MV as proxy, ConvertSfMFormat, LedGetterLights,
+LedGetterPS; or UniMSPS; or LINOUniPS) -> RNbNeuS2, and with an albedo
+MeshRemoveUnseenFaces -> Texturing. The Gourdan bone has no separate MV set: it uses the PS-only graph of
 build_ps_only (one all-LED reference image per PS folder, named *_all_leds).
+
+The published templates were generated with Meshroom develop edc4b6a2, AliceVision 6f9f58ec and the plugins of the
+official registry at meshroomHub/pluginRegistry 266f167.
 
 Usage (with Meshroom and the plugins on the Python path, see docs/INSTALL.md):
     python build_templates.py <output_folder> [name ...]
@@ -199,7 +200,7 @@ def addAlbedoTexturing(g, rnb):
 def addLedGetterInput(g, psImages, sfm):
     """SfMData of the LED-getter nodes, converted to .sfm JSON (ConvertSfMFormat).
 
-    Workaround for B14 (docs/KNOWN_ISSUES.md): without it, the LED-getter nodes read the .abc/.usda export through the
+    Workaround: without it, the LED-getter nodes read the .abc/.usda export through the
     AliceVision Python bindings, which fail in the numpy 2 environment of mrLedGetter when the bindings are built
     against numpy 1 (nightly bundle). Kept in the templates until this is fixed.
     """

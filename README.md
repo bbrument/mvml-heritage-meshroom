@@ -20,71 +20,94 @@ only then); proceedings DOI of the paper when available (badges, BibTeX, CITATIO
 [Jean-Denis Durou](https://cv.hal.science/jean-denis-durou) ·
 [Lilian Calvet](https://www.linkedin.com/in/lilian-calvet-42b1a689/)
 
-**Companion repository of the VISART dataset** ([paper](https://arxiv.org/abs/2609.15833)): Meshroom templates to
-reconstruct its four archaeological objects from the raw images, installation guide, tested versions. Images on
-[Zenodo](https://doi.org/10.5281/zenodo.23500437).
+Meshroom templates that reconstruct the four archaeological objects of the VISART dataset from their raw images
+([paper](https://arxiv.org/abs/2609.15833)).
 
-## The dataset
+## Data
 
-Four objects, each imaged as a multi-view set (MV, one illumination) and a multi-light set (PS, several viewpoints each
-under several illuminations), as Nikon RAW files (NEF, 45.7 MP).
+Images on [Zenodo](https://doi.org/10.5281/zenodo.23500437): `[object]_MV.zip` and `[object]_PS.zip` (Gourdan bone:
+PS only), Nikon RAW (NEF, 8288 × 5520), no masks (the templates compute them with SAM 3). File names, cameras and
+lighting: [dataset page](https://doi.org/10.5281/zenodo.23500437).
 
-| Object | MV images | PS viewpoints × lights | PS images | Method of the paper | Template |
-| :-- | --: | :-- | --: | :-- | :-- |
-| Warrior | 121 | 13 × 8-10 (hand-held flash) | 114 | LED-getter | [`warrior_visart-eccv26.mgt`](templates/warrior/warrior_visart-eccv26.mgt) |
-| Biface | 162 | 12 × 13 (12-LED rig) | 156 | LED-getter | [`biface_visart-eccv26.mgt`](templates/biface/biface_visart-eccv26.mgt) |
-| Calathos | 48 | 6 × 36, 1 × 106, 1 × 29 (RTI dome, flash) | 351 | LED-getter | [`calathos_visart-eccv26.mgt`](templates/calathos/calathos_visart-eccv26.mgt) |
-| Gourdan bone | (in PS) | 23 × 36 (RTI dome) | 828 | Uni-MS-PS | [`gourdan_bone_visart-eccv26.mgt`](templates/gourdan_bone/gourdan_bone_visart-eccv26.mgt) |
-
-Details: [dataset page](https://doi.org/10.5281/zenodo.23500437). No masks: the templates compute them with SAM 3.
+| Object | MV images | PS viewpoints × lights | PS images | Method of the paper |
+| :-- | --: | :-- | --: | :-- |
+| Warrior | 121 | 13 × 8-10 (hand-held flash) | 114 | LED-getter |
+| Biface | 162 | 12 × 13 (12-LED rig) | 156 | LED-getter |
+| Calathos | 48 | 6 × 36, 1 × 106, 1 × 29 (RTI dome, flash) | 351 | LED-getter |
+| Gourdan bone | (in PS) | 23 × 36 (RTI dome) | 828 | Uni-MS-PS |
 
 ## Quick start
 
-1. Download and extract `[object]_MV.zip` and `[object]_PS.zip` from [Zenodo](https://doi.org/10.5281/zenodo.23500437).
-2. Install Meshroom and the plugins: [docs/INSTALL.md](docs/INSTALL.md).
-3. Copy `templates/[object]/` into the extracted `[object]/` folder.
-4. Open the template in Meshroom (*Open Template*) and drop the object folder on the gallery, or:
+1. Install Meshroom develop and the plugins: [docs/INSTALL.md](docs/INSTALL.md).
+2. Extract the archives of an object from Zenodo, and copy `templates/[object]/` into the extracted folder:
 
-```bash
-scripts/run_template.sh templates/biface/biface_visart-eccv26.mgt /data/visart/biface /data/runs/biface
-```
+   ```text
+   [object]/
+   ├── MV/*.NEF                         multi-view set, one illumination
+   ├── PS/PS_xx/*.NEF                   multi-light set: one folder per viewpoint, one image per light
+   ├── [object]_visart-eccv26.mgt       method of the paper
+   └── templates/                       alternatives
+   ```
+
+3. Compute:
+   - **UI:** *File > Open Template*, drop the object folder on the image gallery, save, compute.
+   - **Command line:**
+
+     ```bash
+     scripts/run_template.sh templates/biface/biface_visart-eccv26.mgt /data/visart/biface /data/runs/biface
+     # nightly bundle: MESHROOM_BUNDLE=/path/to/Meshroom-2026.11.12-1d22fba-linux scripts/run_template.sh …
+     ```
+
+2-8 hours per object at full resolution.
 
 ## Templates
 
-```text
-templates/
-├── warrior/
-│   ├── warrior_visart-eccv26.mgt            method of the paper (LED-getter)
-│   └── templates/
-│       └── warrior_lino_unips.mgt           alternative (LINO-UniPS)
-├── biface/
-│   ├── biface_visart-eccv26.mgt             method of the paper (LED-getter)
-│   └── templates/
-│       └── biface_lino_unips.mgt            alternative (LINO-UniPS)
-├── calathos/
-│   ├── calathos_visart-eccv26.mgt           method of the paper (LED-getter)
-│   └── templates/
-│       └── calathos_lino_unips.mgt          alternative (LINO-UniPS)
-└── gourdan_bone/
-    ├── gourdan_bone_visart-eccv26.mgt       method of the paper (Uni-MS-PS)
-    └── templates/
-        ├── gourdan_bone_lino_unips.mgt      alternative (LINO-UniPS)
-        └── gourdan_bone_led_getter.mgt      alternative (LED-getter)
-```
+| Template | Photometric stereo | Output |
+| :-- | :-- | :-- |
+| `warrior_visart-eccv26.mgt` | LED-getter, lights per viewpoint (hand-held flash) | textured mesh |
+| `biface_visart-eccv26.mgt` | LED-getter, one light set for the 12-LED rig | textured mesh |
+| `calathos_visart-eccv26.mgt` | LED-getter, one light set for the dome | textured mesh |
+| `gourdan_bone_visart-eccv26.mgt` | Uni-MS-PS | mesh (no albedo) |
+| `[object]/templates/[object]_lino_unips.mgt` | LINO-UniPS (alternative) | textured mesh |
+| `gourdan_bone/templates/gourdan_bone_led_getter.mgt` | LED-getter (alternative) | textured mesh |
 
-Pipelines, settings of the paper (A100: `downscale` 1, all lights, `meshResolution` 1024) and regeneration:
-[docs/TEMPLATES.md](docs/TEMPLATES.md).
+- **LED-getter:** RAW to EXR → SAM 3 masks → structure-from-motion (MV + PS) → dense photogrammetry of MV (proxy) →
+  `LedGetterLights` → `LedGetterPS` (normals, albedo) → `RNbNeuS2` → `MeshRemoveUnseenFaces` → `Texturing` with the
+  albedo.
+- **Uni-MS-PS (Gourdan bone):** masks and SfM on the 23 all-LED images, poses copied to the other images of each
+  folder → `UniMSPS` on 10 of the 35 lights → `RNbNeuS2`.
+- **LINO-UniPS:** masks and SfM as above, no dense photogrammetry → `LINOUniPS` on 10 lights → `RNbNeuS2` →
+  `MeshRemoveUnseenFaces` → `Texturing`.
 
-## Installation
+Set for a 16 GB GPU; the paper used an A100:
 
-Meshroom **develop** (nightly bundle), five plugins and the SAM 3 checkpoint, about two hours:
-[docs/INSTALL.md](docs/INSTALL.md).
+| Setting | Templates | Paper |
+| :-- | :-- | :-- |
+| `downscale` (`LedGetterLights`, `LedGetterPS`, `UniMSPS`, `LINOUniPS`) | 2 | 1 |
+| `nbImages` (`UniMSPS`, `LINOUniPS`) | 10 | -1 (all) |
+| `meshResolution` (`RNbNeuS2`) | 512 | 1024 |
 
-## Tested versions and known issues
+Generated by [`scripts/build_templates.py`](scripts/build_templates.py).
 
-Tested in November 2026 at full resolution on three machines: [docs/TESTED_VERSIONS.md](docs/TESTED_VERSIONS.md).
-Known issues (LINO-UniPS needs an Ampere or newer GPU; mrSegmentation not yet in the official registry):
-[docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md).
+## Tested versions
+
+November 2026, templates as published, full resolution: all nodes succeed, all PS viewpoints calibrated.
+
+| Machine | GPU | warrior | biface | calathos | gourdan_bone (LINO-UniPS) |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+| Ubuntu 26.04 | Quadro RTX 5000, 16 GB | 5 h 38 | 5 h 16 | 7 h 14 | not run (pre-Ampere GPU) |
+| Ubuntu 22.04 | Quadro RTX 6000, 24 GB | 5 h 19 | 6 h 13 | 7 h 33 | not run (pre-Ampere GPU) |
+| Rocky Linux 9 | A100 | 3 h 08 | 3 h 53 | 5 h 25 | 2 h 24 |
+
+Meshroom develop [`1d22fba2`](https://github.com/alicevision/Meshroom/commit/1d22fba2) with the plugin manager fixes
+now in [#3279](https://github.com/alicevision/Meshroom/pull/3279), AliceVision nightly `92b5846f` (RTX 6000: Meshroom
+`de4b5661`, AliceVision `76d385c0`), Python 3.11, mrLedGetter v1.0.2 (Open3D 0.19 on Rocky Linux 9), mrLINOUniPS
+v2.0.4, mrRNbNeuS2 v1.1.2 (RNb-NeuS2 v2.0.3), mrSegmentation
+[PR #85](https://github.com/meshroomHub/mrSegmentation/pull/85) `976a63b`, `sam3.pt` (SHA-256 `9999e2341ceef5e1…`).
+Peaks: 14-19 GB of GPU memory, 42-44 GB of RAM (workstations).
+
+Not tested: the Uni-MS-PS template of the Gourdan bone and the other alternative templates; the nightly bundle at full
+resolution (biface at 1000 px only); the UI, Windows, Blackwell GPUs (RTX 50xx).
 
 ## Related projects
 
@@ -94,7 +117,6 @@ Known issues (LINO-UniPS needs an Ampere or newer GPU; mrSegmentation not yet in
 | [mrLedGetter](https://github.com/meshroomHub/mrLedGetter) | Self-calibrated near-light photometric stereo (LED-getter) |
 | [mrUniMSPS](https://github.com/meshroomHub/mrUniMSPS) | Universal photometric stereo (Uni-MS-PS) |
 | [mrLINOUniPS](https://github.com/meshroomHub/mrLINOUniPS) | Universal photometric stereo (LINO-UniPS), normals and albedo |
-| [mrSDMUniPS](https://github.com/meshroomHub/mrSDMUniPS) | Universal photometric stereo (SDM-UniPS), no template provided |
 | [mrRNbNeuS2](https://github.com/meshroomHub/mrRNbNeuS2), [RNb-NeuS2](https://github.com/RobinBruneau/RNb-NeuS2) | Multi-view integration of normals and reflectance |
 | [mrSegmentation](https://github.com/meshroomHub/mrSegmentation) | Object masks (SAM 3) |
 
@@ -127,7 +149,3 @@ If you use the dataset or these templates, please cite:
   url       = {https://arxiv.org/abs/2609.15833}
 }
 ```
-
-## Updates
-
-- **2026-11-12**: first version. History of the changes and of the tests: [docs/CHANGELOG.md](docs/CHANGELOG.md).
