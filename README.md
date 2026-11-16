@@ -88,7 +88,7 @@ page](https://doi.org/10.5281/zenodo.23500436).
 | `gourdan_bone/templates/gourdan_bone_led_getter.mgt` | LED-getter (alternative) | textured mesh |
 
 Each template computes the object masks (SAM 3), the camera poses (structure-from-motion on MV and PS), per-view
-normals by photometric stereo, a mesh by RNb-NeuS2 and, when the method gives an albedo, its texture.
+normals by photometric stereo, a mesh by RNb-NeuS2 and, when the PS method gives an albedo, its texture.
 
 Set for a 16 GB GPU; the paper used an A100:
 
