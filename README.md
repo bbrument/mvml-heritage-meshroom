@@ -24,6 +24,21 @@ only then); proceedings DOI of the paper when available (badges, BibTeX, CITATIO
 from the raw images, as in the [paper](https://arxiv.org/abs/2609.15833). Images on
 [Zenodo](https://doi.org/10.5281/zenodo.23500437).
 
+## Videos
+
+<table>
+  <tr>
+    <td width="33%"><a href="https://youtu.be/S7PQEvSg3I0"><img src="https://img.youtube.com/vi/S7PQEvSg3I0/hqdefault.jpg" alt="Supplementary video of the paper"></a></td>
+    <td width="33%"><a href="https://youtu.be/THf_pcn83hU"><img src="https://img.youtube.com/vi/THf_pcn83hU/hqdefault.jpg" alt="Warrior head: photogrammetry vs. multi-view photometric stereo"></a></td>
+    <td width="33%"><a href="https://youtu.be/jfdkJYho4dM"><img src="https://img.youtube.com/vi/jfdkJYho4dM/hqdefault.jpg" alt="Gourdan bone: photogrammetry vs. multi-view photometric stereo"></a></td>
+  </tr>
+  <tr>
+    <td align="center">Supplementary video of the paper</td>
+    <td align="center">Warrior head: photogrammetry vs. MVPS</td>
+    <td align="center">Gourdan bone: photogrammetry vs. MVPS</td>
+  </tr>
+</table>
+
 ## Data
 
 Each object is imaged as a multi-view set (MV: one illumination, for photogrammetry) and a multi-light set (PS: several
