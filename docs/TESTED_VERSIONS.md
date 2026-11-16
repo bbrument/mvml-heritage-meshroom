@@ -23,6 +23,3 @@ biface in 5 h 32, all nodes succeed, same result as the source build.
 | mrRNbNeuS2 | v1.1.2, RNb-NeuS2 v2.0.3 |
 | mrSegmentation | [PR #85](https://github.com/meshroomHub/mrSegmentation/pull/85), `976a63b` |
 | SAM 3 | `sam3.pt`, SHA-256 `9999e2341ceef5e1…` |
-
-Not tested: the Uni-MS-PS template of the Gourdan bone and the other alternative templates; the nightly bundle on the
-other objects; the UI, Windows, Blackwell GPUs (RTX 50xx).
