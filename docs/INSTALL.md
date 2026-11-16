@@ -5,16 +5,20 @@ Disk: 30 GB for Meshroom and the plugins, 3.5 GB for SAM 3; per object, 17-39 GB
 
 ## 1. Meshroom develop (nightly bundle)
 
+Latest bundle: [Meshroom nightly release](https://github.com/alicevision/Meshroom/releases/tag/nightly) (tested:
+`2026.11.12-1d22fba`).
+
 ```bash
 git clone https://github.com/bbrument/mvml-heritage-meshroom.git && R=$PWD/mvml-heritage-meshroom
-wget https://github.com/alicevision/Meshroom/releases/download/nightly/Meshroom-2026.11.12-1d22fba-linux-full.tar.gz
-tar xzf Meshroom-2026.11.12-1d22fba-linux-full.tar.gz
-M=$PWD/Meshroom-2026.11.12-1d22fba-linux; AV=$M/aliceVision; MP=$M/meshroom_plugins; P=$M/plugins
+# download Meshroom-<date>-<commit>-linux-full.tar.gz from the nightly release above
+tar xzf Meshroom-*-linux-full.tar.gz
+M=$(ls -d $PWD/Meshroom-*-linux); AV=$M/aliceVision; MP=$M/meshroom_plugins; P=$M/plugins
 ```
 
 From source instead: [Meshroom](https://github.com/alicevision/Meshroom) develop with
-[#3279](https://github.com/alicevision/Meshroom/pull/3279) merged and AliceVision nightly `92b5846f`, then steps 2-5
-with the `meshroom_plugins` of the clone.
+[#3279](https://github.com/alicevision/Meshroom/pull/3279) merged and the
+[AliceVision nightly](https://github.com/alicevision/AliceVision/releases/tag/nightly), then steps 2-5 with the
+`meshroom_plugins` of the clone.
 
 ## 2. Vocabulary tree
 

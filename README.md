@@ -74,7 +74,7 @@ page](https://doi.org/10.5281/zenodo.23500437).
 
      ```bash
      scripts/run_template.sh templates/biface/biface_visart-eccv26.mgt /data/visart/biface /data/runs/biface
-     # nightly bundle: MESHROOM_BUNDLE=/path/to/Meshroom-2026.11.12-1d22fba-linux scripts/run_template.sh …
+     # nightly bundle: MESHROOM_BUNDLE=/path/to/Meshroom-<date>-<commit>-linux scripts/run_template.sh …
      ```
 
 2-8 hours per object at full resolution ([tested versions](docs/TESTED_VERSIONS.md)).
