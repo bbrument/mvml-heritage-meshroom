@@ -10,6 +10,9 @@ November 2026, templates as published, full resolution: all nodes succeed, all P
 
 Peaks: 14-19 GB of GPU memory, 42-44 GB of RAM (workstations).
 
+Nightly bundle `Meshroom-2026.11.12-1d22fba-linux-full` ([INSTALL.md](INSTALL.md)), Quadro RTX 5000, 16 GB, Ubuntu 26.04:
+biface in 5 h 32, all nodes succeed, same result as the source build.
+
 | Software | Version |
 | :-- | :-- |
 | Meshroom | develop [`1d22fba2`](https://github.com/alicevision/Meshroom/commit/1d22fba2) with the plugin manager fixes now in [#3279](https://github.com/alicevision/Meshroom/pull/3279) (RTX 6000: `de4b5661`) |
@@ -21,5 +24,5 @@ Peaks: 14-19 GB of GPU memory, 42-44 GB of RAM (workstations).
 | mrSegmentation | [PR #85](https://github.com/meshroomHub/mrSegmentation/pull/85), `976a63b` |
 | SAM 3 | `sam3.pt`, SHA-256 `9999e2341ceef5e1…` |
 
-Not tested: the Uni-MS-PS template of the Gourdan bone and the other alternative templates; the nightly bundle at full
-resolution (biface at 1000 px only); the UI, Windows, Blackwell GPUs (RTX 50xx).
+Not tested: the Uni-MS-PS template of the Gourdan bone and the other alternative templates; the nightly bundle on the
+other objects; the UI, Windows, Blackwell GPUs (RTX 50xx).
