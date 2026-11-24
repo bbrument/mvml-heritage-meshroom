@@ -1,4 +1,4 @@
-<img src="assets/banner.png" width="100%" alt="Textured reconstructions of the four objects of the VISART dataset: warrior head, flint biface, woman with a calathos and Gourdan bone">
+<img src="assets/banner.png" width="100%" alt="Reconstructions of the four objects of the VISART dataset, textured (top right) and shaded (bottom left): warrior head, flint biface, woman with a calathos and Gourdan bone">
 
 # Integrating Multi-view Multi-light Surface Reconstruction into Cultural Heritage Workflows
 
